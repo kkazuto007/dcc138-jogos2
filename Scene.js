@@ -72,7 +72,16 @@ Scene.prototype.checaColisao = function(){
                 }
                 else
                 if(this.sprites[i].props.tipo === "pc"
-                && this.sprites[j].props.tipo ==="bosssshot"){
+                && this.sprites[j].props.tipo ==="bossshot"){
+                    this.toRemove.push(this.sprites[j]);
+                    this.assets.play("death");
+                    this.assets.play("heartbeat");
+                    this.sprites[2].rate += 1;
+                    damage += 0.01
+                }
+                else
+                if(this.sprites[i].props.tipo === "pc"
+                && this.sprites[j].props.tipo ==="bossshot2"){
                     this.toRemove.push(this.sprites[j]);
                     this.assets.play("death");
                     this.assets.play("heartbeat");
@@ -84,7 +93,7 @@ Scene.prototype.checaColisao = function(){
                 && this.sprites[j].props.tipo ==="boss"){
                     this.assets.play("heartbeat");
                     this.sprites[2].rate += 1;
-                    damage += 0.01
+                    damage += 0.005
                 }
                 else 
                 if(this.sprites[i].props.tipo === "enemy"
@@ -96,7 +105,15 @@ Scene.prototype.checaColisao = function(){
                     kills++;
                 }
                 else 
-                if(this.sprites[i].props.tipo === "bosssshot"
+                if(this.sprites[i].props.tipo === "bossshot"
+                && this.sprites[j].props.tipo ==="tiro"){
+                    this.toRemove.push(this.sprites[i]);
+                    this.toRemove.push(this.sprites[j]);
+                    this.assets.play("death");
+                    kills++;
+                }
+                else 
+                if(this.sprites[i].props.tipo === "bossshot2"
                 && this.sprites[j].props.tipo ==="tiro"){
                     this.toRemove.push(this.sprites[i]);
                     this.toRemove.push(this.sprites[j]);

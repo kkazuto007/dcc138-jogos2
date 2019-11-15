@@ -50,7 +50,7 @@ Sprite.prototype.desenhar = function (ctx) {
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.drawImage(this.scene.assets.img("enemy"),
-            Math.floor(relogio/60)*32,
+            Math.floor(relogio/50)*32,
             (F % 2) *32,
             32,
             32,
@@ -62,7 +62,7 @@ Sprite.prototype.desenhar = function (ctx) {
         ctx.restore();
     }
 
-    if (this.props.tipo === "bosssshot") {
+    if (this.props.tipo === "bossshot") {
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.drawImage(this.scene.assets.img("bossshot"),
@@ -77,7 +77,7 @@ Sprite.prototype.desenhar = function (ctx) {
         ctx.restore();
     }
 
-    if (this.props.tipo === "bosssshot2") {
+    if (this.props.tipo === "bossshot2") {
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.drawImage(this.scene.assets.img("enemy"),
@@ -240,9 +240,11 @@ Sprite.prototype.movermru = function (dt) {
     this.x = this.x + this.ax * dt;
     this.y = this.y + this.ay * dt;
 
+    this.a = this.a + this.va*dt;
+
     this.mc = Math.floor(this.x / this.scene.map.SIZE);
     this.ml = Math.floor(this.y / this.scene.map.SIZE);
-    if(this.props.tipo != "boss" && this.props.tipo != "bosssshot" && this.props.tipo != "bosssshot2"){
+    if(this.props.tipo != "boss" && this.props.tipo != "bossshot" && this.props.tipo != "bossshot2"){
         this.aplicaRestricoes(dt);
     }
     this.cooldown = this.cooldown - dt;

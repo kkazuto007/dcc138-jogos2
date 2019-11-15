@@ -115,12 +115,12 @@
         var heart = new Sprite({ x: canvas.width/8-pc.x, y: canvas.height/8-pc.y, w: 16, h: 16, rate: 6, w: 32, h: 32, comportar: heartrate() , props: { tipo: "coracao" }});
         cena2.adicionar(heart);
  
-        var chefe = new Sprite({x:386, y: 320, h:32, w:32 ,vida:15 ,comportar: persegueSpawn(pc), props:{tipo: "boss"}});
+        var chefe = new Sprite({x:386, y: 320, h:64, w:64 ,vida:15 ,comportar: persegueSpawn(pc), props:{tipo: "boss"}});
                            
 
         function heartrate(){
             return function (){
-                this.rate = 6.3 - relogio/50 * 1.5 - damage
+                this.rate = 6.3 - relogio/60 * 1.25 - damage
             }
         }
 
@@ -138,10 +138,18 @@
             }
         }
 
-        function orbita(alvo) {
+        function orbita(alvo,rng) {
            return function () {
-               this.x = Math.cos()*alvo.x*30*dt;
-               this.y = Math.sin()*alvo.y*30*dt;
+               switch(rng){
+                   case 0: this.x = alvo.x + 30*Math.cos(this.a);
+                           this.y = alvo.y + 30*Math.sin(this.a);
+                   case 1: this.x = alvo.x - 30*Math.cos(this.a);
+                           this.y = alvo.y + 30*Math.sin(this.a);
+                   case 2: this.x = alvo.x + 30*Math.cos(this.a);
+                           this.y = alvo.y - 30*Math.sin(this.a);
+                   case 3: this.x = alvo.x - 30*Math.cos(this.a);
+                           this.y = alvo.y - 30*Math.sin(this.a);
+               }
             }
         }
 
@@ -157,20 +165,23 @@
                        w: 32,
                        h: 32,
                        comportar: persegue2(alvo),
-                       props: { tipo: "bosssshot"},
+                       props: { tipo: "bossshot"},
                     });
+                   var rng = Math.floor(Math.random()*100)%4;
                    var angel = new Sprite({
                        x: this.x,
                        y: this.y,
                        w: 32,
                        h: 32,
-                       comportar: orbita(chefe),
-                       props: { tipo: "bosssshot2"},
+                       a: 0,
+                       va: 2,
+                       comportar: orbita(this,rng),
+                       props: { tipo: "bossshot2"},
                     });
                     this.scene.adicionar(tiro);
                     assetsMng.play("shot");
                     this.scene.adicionar(angel);
-                    this.cooldown = 3;
+                    this.cooldown = 5;
                 }
             }
         }
@@ -255,7 +266,7 @@
                 else if(boss >=2){
                     ctx.drawImage(assetsMng.img("youwon"),pc.x-160,pc.y-144,canvas.width/2,canvas.height/2);
                 }
-                else if(heart.rate <= 0){
+                else if(heart.rate <= 0 || relogio >= 240){
                     if(batida >= -1){
                         assetsMng.play("tension");
                         batida = -9000;
