@@ -190,22 +190,18 @@ Sprite.prototype.desenhar = function (ctx) {
         //ctx.scale(2, 2);
         ctx.translate(pc.x + 90, pc.y - canvas.height / 4 + 32);
         ctx.drawImage(this.scene.assets.img("heart"), (F % 4) * 32, 0, 32, 32, 0, 0, this.w, this.h);
-        ctx.fillStyle = "White";
-        ctx.fillText(" BPM: ", this.x-15, this.y+30);
+        ctx.drawImage(this.scene.assets.img("font"), 224, 0, 64, 32, this.x-20, this.y+14, 32, 16);
         ctx.drawImage(this.scene.assets.img("numbers"), Math.floor((this.rate*100/7)/100)*32, 0, 32, 32, this.x-36, this.y+30, 16, 16);
         ctx.drawImage(this.scene.assets.img("numbers"), Math.floor((this.rate*100/7)/10)*32, 0, 32, 32, this.x-20, this.y+30, 16, 16);
         ctx.drawImage(this.scene.assets.img("numbers"), Math.floor((this.rate*100/7)%10)*32, 0, 32, 32, this.x-4, this.y+30, 16, 16);
     
-        ctx.fillText("Towers left: ", this.x-240, this.y);
-        ctx.drawImage(this.scene.assets.img("numbers"), torres*32, 0, 32, 32, this.x-188, this.y-12, 16, 16);
+        ctx.drawImage(this.scene.assets.img("font"), 96, 0, 128, 32, this.x-230, this.y-12, 64, 16);
+        ctx.drawImage(this.scene.assets.img("numbers"), torres*32, 0, 32, 32, this.x-168, this.y-12, 16, 16);
     
-        ctx.fillText("Souls collected: ", this.x-240, this.y+15);
+        ctx.drawImage(this.scene.assets.img("font"), 0, 0, 96, 32, this.x-230, this.y+15, 48, 16);
         ctx.drawImage(this.scene.assets.img("numbers"), Math.floor(kills/100)*32, 0, 32, 32, this.x-184, this.y+15, 16, 16);
         ctx.drawImage(this.scene.assets.img("numbers"), Math.floor(kills/10)*32, 0, 32, 32, this.x-168, this.y+15, 16, 16);
         ctx.drawImage(this.scene.assets.img("numbers"), Math.floor(kills%10)*32, 0, 32, 32, this.x-152, this.y+15, 16, 16);
-    
-        ctx.fillText(kills, this.x-160, this.y + 15);   
-    
         ctx.restore();
     }
 
